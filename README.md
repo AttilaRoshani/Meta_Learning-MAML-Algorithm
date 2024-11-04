@@ -10,29 +10,29 @@ Maximize recall for each class through model tuning.
 Provide performance evaluation metrics for the classification.
 Dataset Structure
 The dataset is expected to be organized as follows:
-
-resources/
-├── super/
-│   ├── image1.jpg
-│   ├── image2.jpg
-│   └── ...
-└── sadyek/
-    ├── image1.jpg
-    ├── image2.jpg
-    └── ...
+    
+    resources/
+    ├── super/
+    │   ├── image1.jpg
+    │   ├── image2.jpg
+    │   └── ...
+    └── sadyek/
+        ├── image1.jpg
+        ├── image2.jpg
+        └── ...
 
   super/: Contains images belonging to Class 1.
   sadyek/: Contains images belonging to Class 2.
 
 ## Requirements
 To run this notebook, ensure you have the following dependencies installed:
-
-. Python 3.x
-. Jupyter Notebook
-. PyTorch
-. OpenAI's CLIP model
-. NumPy
-. Matplotlib (for plotting and visualization)
+    
+    Python 3.x
+    Jupyter Notebook
+    PyTorch
+    OpenAI's CLIP model
+    NumPy
+    Matplotlib (for plotting and visualization)
 
 You can install the required libraries with the following command:
 pip install torch numpy matplotlib openai-clip
