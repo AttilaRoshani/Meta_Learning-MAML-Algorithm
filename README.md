@@ -1,51 +1,81 @@
-# Few-Shot Learning with CLIP for Image Classification
-This project demonstrates the use of few-shot learning with OpenAI's CLIP model to improve recall for a binary image classification task. Images are stored in two directories, each representing a separate class, and we aim to optimize the model's recall on these specific categories.
+# Few-Shot Learning with CLIP and Learnable Contexts
 
-## Project Overview
-In this notebook, we utilize CLIP's capabilities to perform few-shot learning, which is particularly useful when only a limited number of examples are available for each class. By leveraging CLIP’s pre-trained visual and textual embeddings, we can efficiently differentiate between two classes of images with minimal labeled data.
+This project implements a few-shot learning approach using OpenAI's CLIP model and learnable contexts to classify images of dried figs into two categories:
+- **Super**: Smooth and unbroken surface.
+- **Sadyek**: Partially opened, exposing the interior.
 
-## Objectives
-Apply few-shot learning using CLIP to classify images into two distinct classes.
-Maximize recall for each class through model tuning.
-Provide performance evaluation metrics for the classification.
-Dataset Structure
-The dataset is expected to be organized as follows:
-    
-    resources/
-    ├── super/
-    │   ├── image1.jpg
-    │   ├── image2.jpg
-    │   └── ...
-    └── sadyek/
-        ├── image1.jpg
-        ├── image2.jpg
-        └── ...
+The implementation leverages the COOP (Context Optimization) technique, where learnable context tokens are optimized to improve classification performance with minimal labeled data.
 
-  super/: Contains images belonging to Class 1.
-  sadyek/: Contains images belonging to Class 2.
+## Features
+- **Few-Shot Learning**: Train the model with just a few examples per class.
+- **CLIP Integration**: Uses the CLIP model for zero-shot and few-shot classification tasks.
+- **Learnable Contexts**: A custom learnable context mechanism to adapt textual prompts to specific datasets.
+- **Custom Dataset**: Supports a custom dataset of `.bmp` images stored in class-specific directories.
 
 ## Requirements
-To run this notebook, ensure you have the following dependencies installed:
-    
-    Python 3.x
-    Jupyter Notebook
-    PyTorch
-    OpenAI's CLIP model
-    NumPy
-    Matplotlib (for plotting and visualization)
+- Python 3.8+
+- PyTorch 1.10+
+- torchvision
+- clip-by-openai
+- sklearn
+- Pillow
 
-You can install the required libraries with the following command:
-pip install torch numpy matplotlib openai-clip
+Install dependencies via pip:
+```bash
 
-## Notebook Structure
-Setup and Imports: Load necessary libraries and set up CLIP for image embedding.
-Data Loading: Load and preprocess images from each class directory.
-Feature Extraction: Use CLIP to extract embeddings for each image.
-Few-Shot Learning: Apply a few-shot learning technique by selecting a small number of images from each class as exemplars.
-Classification and Tuning:
-Use embeddings to classify images into the two classes.
-Optimize for maximum recall, adjusting parameters as necessary.
-Evaluation: Measure the model's performance using metrics such as recall, precision, and F1 score.
+pip install torch torchvision clip-by-openai scikit-learn pillow
+```
+Place your dataset in the following directory structure:
+```
 
-## results
-The notebook provides performance metrics, which include recall for each class. You can modify parameters in the notebook to achieve better recall results for the two classes.
+resources/
+├── super/
+│   ├── image1.bmp
+│   ├── image2.bmp
+│   └── ...
+├── sadyek/
+│   ├── image1.bmp
+│   ├── image2.bmp
+│   └── ...
+```
+## Usage
+1. Clone the repository:
+```
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+```
+2. Run the script:
+```
+python Few_Shot_With_COOP.py
+```
+The script will train the model using the provided images and display the final accuracy.
+
+## Key Components
+
+#### 1. **Custom Dataset**
+The `CustomImageDataset` class loads images from the specified directories and applies preprocessing.
+
+#### 2. **Learnable Context Module**
+The `LearnableContext` class initializes a set of learnable tokens that are concatenated with the class embeddings during training.
+
+#### 3. **Training Loop**
+The script trains the learnable context tokens while keeping the CLIP model frozen.
+
+#### 4. **Evaluation**
+The `evaluate` function computes the classification accuracy on the entire dataset.
+
+## Results
+After training, the script outputs the classification accuracy on the full dataset. This demonstrates the model's ability to generalize with minimal labeled data.
+
+## Customization
+- Adjust the `train_size` variable to modify the number of training examples per class.
+- Update the `class_texts` to adapt the textual descriptions for your dataset.
+- Modify hyperparameters like `lr`, `num_epochs`, or `context_length` for optimization.
+
+## Acknowledgments
+This project is inspired by the CLIP model by OpenAI and the COOP (Context Optimization) methodology.
+
+## License
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+
